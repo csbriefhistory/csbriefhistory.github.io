@@ -16,6 +16,11 @@ header {
 
 main {
     padding: 20px;
+    max-width: 800px; /* Максимальна ширина контенту */
+    margin: 0 auto; /* Вирівнювання по центру */
+    background: #fff; /* Фон для контенту */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легка тінь */
+    border-radius: 5px; /* Округлені кути */
 }
 
 nav ul {
@@ -45,5 +50,9 @@ nav ul li a:hover {
 @media (max-width: 600px) {
     nav ul li a {
         font-size: 14px;
+    }
+
+    main {
+        padding: 10px; /* Менші відступи для вузьких екранів */
     }
 }
