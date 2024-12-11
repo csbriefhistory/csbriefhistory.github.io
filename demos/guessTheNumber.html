@@ -64,24 +64,32 @@
     </div>
 
     <script>
+        // Генерація випадкового числа від 1 до 100
         const numberToGuess = Math.floor(Math.random() * 100) + 1;
+
+        // Вибір елементів DOM
         const result = document.getElementById('result');
         const guessInput = document.getElementById('guess');
         const submitButton = document.getElementById('submit');
         const attemptsElement = document.getElementById('attempts');
-        let attempts = 0;
 
+        let attempts = 0; // Лічильник спроб
+
+        // Обробник натискання кнопки "Відправити"
         submitButton.addEventListener('click', () => {
             const userGuess = parseInt(guessInput.value, 10);
 
-            if (isNaN(userGuess)) {
-                result.textContent = "Будь ласка, введіть коректне число.";
+            // Перевірка на коректність введеного числа
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                result.textContent = "Будь ласка, введіть число від 1 до 100.";
                 return;
             }
 
+            // Збільшення лічильника спроб
             attempts++;
             attemptsElement.textContent = attempts;
 
+            // Порівняння введеного числа із загаданим
             if (userGuess < numberToGuess) {
                 result.textContent = "Більше!";
             } else if (userGuess > numberToGuess) {
@@ -90,6 +98,7 @@
                 result.textContent = "Вітаю! Ти вгадав число!";
             }
 
+            // Очищення поля вводу
             guessInput.value = "";
         });
     </script>
