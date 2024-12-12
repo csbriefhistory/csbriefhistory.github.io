@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бітовий Конвертер</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 3rem;
+        }
+        p {
+            font-size: 1.5rem;
+        }
+        #bits {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+        .bit-input {
+            margin: 0 10px;
+        }
+        .bit-input input {
+            width: 60px;
+            height: 60px;
+            padding: 10px;
+            font-size: 2rem;
+            text-align: center;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 2rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Бітовий Конвертер</h1>
+        <p>Введіть значення для кожного біта:</p>
+        <div id="bits">
+            <!-- Поля для вводу значень бітів -->
+            <div class="bit-input" id="bit-7"><input type="number" min="0" max="1" data-bit="7"></div>
+            <div class="bit-input" id="bit-6"><input type="number" min="0" max="1" data-bit="6"></div>
+            <div class="bit-input" id="bit-5"><input type="number" min="0" max="1" data-bit="5"></div>
+            <div class="bit-input" id="bit-4"><input type="number" min="0" max="1" data-bit="4"></div>
+            <div class="bit-input" id="bit-3"><input type="number" min="0" max="1" data-bit="3"></div>
+            <div class="bit-input" id="bit-2"><input type="number" min="0" max="1" data-bit="2"></div>
+            <div class="bit-input" id="bit-1"><input type="number" min="0" max="1" data-bit="1"></div>
+            <div class="bit-input" id="bit-0"><input type="number" min="0" max="1" data-bit="0"></div>
+        </div>
+        <div class="result">
+            Число: <span id="decimal">0</span>
+        </div>
+    </div>
+
+    <script>
+        // Отримання всіх полів вводу для бітів
+        const bitInputs = document.querySelectorAll('[data-bit]');
+        const decimalOutput = document.getElementById('decimal');
+
+        // Функція для оновлення десяткового числа
+        function updateDecimal() {
+            let decimalValue = 0;
+            bitInputs.forEach(input => {
+                const bitPosition = parseInt(input.getAttribute('data-bit'), 10);
+                const bitValue = parseInt(input.value, 10) || 0;
+
+                // Перевірка на коректність введеного значення
+                if (bitValue !== 0 && bitValue !== 1) {
+                    input.value = 0; // Якщо значення некоректне, встановити 0
+                }
+
+                // Додавання значення біта до загальної суми
+                decimalValue += bitValue * Math.pow(2, bitPosition);
+            });
+
+            // Виведення результату
+            decimalOutput.textContent = decimalValue;
+        }
+
+        // Додавання обробника подій для кожного вводу
+        bitInputs.forEach(input => {
+            input.addEventListener('input', updateDecimal);
+        });
+
+        // Ініціалізація значення
+        updateDecimal();
+    </script>
+</body>
+</html>
