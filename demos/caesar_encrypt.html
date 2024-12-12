@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шифрування - Шифр Цезаря</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        input {
+            margin: 10px;
+            padding: 15px;
+            font-size: 1.5em;
+            width: 400px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        @media screen and (max-width: 768px) {
+            input {
+                width: 90%;
+            }
+
+            button {
+                width: 90%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Шифрування - Шифр Цезаря</h1>
+    <p>Введіть текст і ключ для шифрування:</p>
+
+    <label for="text">Текст: </label>
+    <input type="text" id="text" placeholder="Введіть текст">
+
+    <label for="key">Ключ: </label>
+    <input type="number" id="key" placeholder="Введіть ключ">
+
+    <button onclick="encryptText()">Зашифрувати</button>
+
+    <div id="result"></div>
+
+    <script>
+        function encryptText() {
+            const text = document.getElementById('text').value;
+            const key = parseInt(document.getElementById('key').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!text || isNaN(key)) {
+                resultDiv.textContent = 'Будь ласка, введіть текст і ключ.';
+                resultDiv.style.color = 'red';
+                return;
+            }
+
+            const alphabet = 'абвгґдежзийіклмнопрстуфхцчшщьюя';
+            const alphabetLength = alphabet.length;
+
+            const encrypt = (char, shift) => {
+                const index = alphabet.indexOf(char);
+                if (index === -1) {
+                    return char;
+                }
+                return alphabet[(index + shift + alphabetLength) % alphabetLength];
+            };
+
+            const encryptedText = text
+                .toLowerCase()
+                .split('')
+                .map(char => encrypt(char, key))
+                .join('');
+
+            resultDiv.textContent = `Зашифрований текст: ${encryptedText}`;
+            resultDiv.style.color = '#4CAF50';
+        }
+    </script>
+</body>
+</html>
